@@ -29,7 +29,7 @@ const productsData = [
 
 const ProductsCards = () => {
   return (
-    <div className="max-w-full m-10">
+    <div className="max-w-full px-10 mt-6">
       <h2 className="mb-3 text-2xl font-semibold">Products</h2>
       <div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
         {productsData.map((product, index) => (
