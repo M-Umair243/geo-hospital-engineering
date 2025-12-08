@@ -17,19 +17,19 @@ type NavigationItem = {
 const navigationData: NavigationItem = [
   {
     title: "Home",
-    href: "#",
+    href: "/home",
   },
   {
     title: "Products",
-    href: "#",
+    href: "/products",
   },
   {
     title: "About Us",
-    href: "#",
+    href: "/about-us",
   },
   {
     title: "Contacts",
-    href: "#",
+    href: "/contact",
   },
 ];
 
