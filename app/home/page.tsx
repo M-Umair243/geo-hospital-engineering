@@ -10,15 +10,6 @@ const page = () => {
       <ProductsCards />
       <FeaturedProductCards />
       <ComapnyOverview />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
     </div>
   );
 };
