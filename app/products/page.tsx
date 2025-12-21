@@ -1,8 +1,8 @@
-import ProductsCategories from "./products-categories";
+import ProductsCategories from "./tabs/products-categories";
 
 const page = () => {
   return (
-    <div className="max-w-full px-10 ">
+    <div className="max-w-full">
       <ProductsCategories />
     </div>
   );

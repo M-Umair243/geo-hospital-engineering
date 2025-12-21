@@ -1,5 +1,5 @@
 // "use client";
-import HospitalsBed from "@/app/products/hospital-beds";
+import HospitalsBed from "@/app/products/tabs/hospital-beds";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React from "react";
 import GeneralWardFurniture from "./general-ward-furniture";
