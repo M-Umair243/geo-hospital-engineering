@@ -9,7 +9,6 @@ const page = () => {
       <HeroCarousel />
       <ProductsCards />
       <FeaturedProductCards />
-      <ComapnyOverview />
     </div>
   );
 };
