@@ -1,11 +1,10 @@
-import ProductsCategories from "./tabs/products-categories";
+import { Suspense } from "react";
+import ProductsCategories from "./products-categories";
 
-const page = () => {
+export default function Page() {
   return (
-    <div className="max-w-full">
+    <Suspense fallback={<div>Loading...</div>}>
       <ProductsCategories />
-    </div>
+    </Suspense>
   );
-};
-
-export default page;
+}

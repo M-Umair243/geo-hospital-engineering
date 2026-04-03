@@ -1,135 +1,108 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
-import { ArrowUpRight, PackageSearch } from "lucide-react";
-
-import { DataProps } from "@/types";
+import { ClipboardList, PackageSearch } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from "@/components/ui/dialog";
+import { ProductItem } from "@/data/product";
 
-const ProductCategoryCard = ({ data }: { data: DataProps[] }) => {
+const ProductCategoryCard = ({ data }: { data: ProductItem[] }) => {
   const [selectedProduct, setSelectedProduct] =
-    React.useState<DataProps | null>(null);
-  const [openModal, setOpenModal] = React.useState(false);
-
-  const handleOpenModal = (product: DataProps) => {
-    setSelectedProduct(product);
-    setOpenModal(true);
-  };
+    React.useState<ProductItem | null>(null);
 
   return (
     <>
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-5">
-        {data.map((product, index) => (
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-5">
+        {data.map((product) => (
           <button
-            key={`${product.title}-${index}`}
+            key={product.id}
             type="button"
-            onClick={() => handleOpenModal(product)}
-            className="group overflow-hidden rounded-3xl border border-slate-200 bg-white text-left shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-cyan-200 hover:shadow-xl"
+            onClick={() => setSelectedProduct(product)}
+            className="group rounded-3xl border border-slate-200 bg-white p-5 text-left shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-cyan-200 hover:shadow-xl"
           >
-            <div className="relative flex h-56 items-center justify-center overflow-hidden bg-linear-to-br from-slate-50 to-cyan-50/40 p-5">
-              <div className="absolute right-0 top-0 h-24 w-24 translate-x-8 -translate-y-8 rounded-full bg-cyan-100/70 blur-2xl transition-all duration-300 group-hover:bg-cyan-200/80" />
-
-              <Image
-                src={product.image}
-                alt={product.title}
-                width={260}
-                height={260}
-                className="relative z-10 h-[180px] w-auto object-contain transition-transform duration-500 group-hover:scale-105"
-              />
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-900 text-white transition-all duration-300 group-hover:bg-cyan-600">
+              <PackageSearch className="h-6 w-6" />
             </div>
 
-            <div className="p-5">
-              {product.subTItle && (
-                <span className="inline-flex rounded-full border border-cyan-100 bg-cyan-50 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-cyan-700">
-                  {product.subTItle}
-                </span>
-              )}
+            <h3 className="mt-5 text-lg font-semibold tracking-tight text-slate-900">
+              {product.title}
+            </h3>
 
-              <h3 className="mt-3 text-lg font-semibold tracking-tight text-slate-900">
-                {product.title}
-              </h3>
-
-              <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600">
-                {product.desc}
+            {product.subtitle && (
+              <p className="mt-1 text-sm font-medium text-cyan-700">
+                {product.subtitle}
               </p>
+            )}
 
-              <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-slate-700 transition-colors duration-300 group-hover:text-cyan-700">
-                View Details
-                <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </div>
+            <p className="mt-3 line-clamp-3 text-sm leading-7 text-slate-600">
+              {product.description}
+            </p>
+
+            <div className="mt-4 text-sm font-semibold text-cyan-700">
+              View Details
             </div>
           </button>
         ))}
       </div>
 
-      <Dialog open={openModal} onOpenChange={setOpenModal}>
-        <DialogContent className="max-h-[90vh] overflow-y-auto rounded-3xl border border-slate-200 bg-white p-0 shadow-2xl sm:max-w-4xl">
+      <Dialog
+        open={!!selectedProduct}
+        onOpenChange={(open) => !open && setSelectedProduct(null)}
+      >
+        <DialogContent className="max-h-[90vh] overflow-y-auto rounded-3xl sm:max-w-3xl">
           {selectedProduct && (
-            <div className="grid gap-0 md:grid-cols-[1fr_1fr]">
-              <div className="relative flex min-h-80 items-center justify-center overflow-hidden bg-linear-to-br from-slate-50 via-white to-cyan-50/40 p-6 sm:p-8">
-                <div className="absolute left-0 top-0 h-40 w-40 -translate-x-10 -translate-y-10 rounded-full bg-cyan-100/70 blur-3xl" />
-                <div className="absolute bottom-0 right-0 h-40 w-40 translate-x-10 translate-y-10 rounded-full bg-blue-100/60 blur-3xl" />
+            <div className="p-1">
+              <DialogHeader className="text-left">
+                <DialogTitle className="text-2xl font-bold text-slate-900">
+                  {selectedProduct.title}
+                </DialogTitle>
 
-                <Image
-                  src={selectedProduct.image}
-                  alt={selectedProduct.title}
-                  width={500}
-                  height={500}
-                  className="relative z-10 h-[260px] w-auto object-contain sm:h-80"
-                />
-              </div>
+                <DialogDescription className="text-sm leading-7 text-slate-600">
+                  {selectedProduct.description}
+                </DialogDescription>
+              </DialogHeader>
 
-              <div className="flex flex-col p-6 sm:p-8">
-                <DialogHeader className="space-y-3 text-left">
-                  {selectedProduct.subTItle && (
-                    <span className="inline-flex w-fit rounded-full border border-cyan-100 bg-cyan-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-cyan-700">
-                      {selectedProduct.subTItle}
-                    </span>
-                  )}
-
-                  <DialogTitle className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
-                    {selectedProduct.title}
-                  </DialogTitle>
-
-                  <DialogDescription className="text-sm leading-7 text-slate-600">
-                    Product overview and specifications for this selected item.
-                  </DialogDescription>
-                </DialogHeader>
-
-                <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                  <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-slate-900">
-                    <PackageSearch className="h-4 w-4 text-cyan-700" />
-                    Product Details
+              {!!selectedProduct.features?.length && (
+                <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                  <div className="mb-4 flex items-center gap-2 text-sm font-semibold text-slate-900">
+                    <ClipboardList className="h-4 w-4 text-cyan-700" />
+                    Product Features
                   </div>
 
-                  <p className="text-sm leading-7 text-slate-600">
-                    {selectedProduct.desc}
-                  </p>
+                  <ul className="space-y-3">
+                    {selectedProduct.features.map((feature, index) => (
+                      <li
+                        key={index}
+                        className="flex gap-3 text-sm leading-7 text-slate-600"
+                      >
+                        <span className="mt-2 h-2 w-2 rounded-full bg-cyan-600" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
+              )}
 
-                <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                  <Button
-                    className="h-11 rounded-full bg-slate-900 px-6 font-semibold text-white hover:bg-slate-800"
-                    onClick={() => setOpenModal(false)}
-                  >
-                    Close
-                  </Button>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Button
+                  className="rounded-full bg-slate-900 px-6 hover:bg-slate-800"
+                  onClick={() => setSelectedProduct(null)}
+                >
+                  Close
+                </Button>
 
-                  <Button
-                    variant="outline"
-                    className="h-11 rounded-full border-slate-300 px-6 font-semibold text-slate-700 hover:border-cyan-200 hover:bg-cyan-50 hover:text-cyan-700"
-                  >
-                    Request Quote
-                  </Button>
-                </div>
+                <Button
+                  variant="outline"
+                  className="rounded-full border-slate-300 px-6"
+                >
+                  Request Quote
+                </Button>
               </div>
             </div>
           )}

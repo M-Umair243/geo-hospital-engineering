@@ -8,7 +8,7 @@ const page = () => {
     <div>
       <HeroCarousel />
       <ProductsCards />
-      <FeaturedProductCards />
+      {/* <FeaturedProductCards /> */}
     </div>
   );
 };
