@@ -1,10 +1,10 @@
-import ProductsCategories from "./tabs/products-categories";
+import ProductsCategories from "./products-categories";
 
 const page = () => {
   return (
-    <div className="max-w-full">
+    <main className="bg-white">
       <ProductsCategories />
-    </div>
+    </main>
   );
 };
 

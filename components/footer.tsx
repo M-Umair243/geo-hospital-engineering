@@ -1,25 +1,12 @@
 import Link from "next/link";
 import { ChevronRight, Mail, MapPin, Phone, ArrowUpRight } from "lucide-react";
+import { productsData } from "@/data/products-data";
 
 const quickLinks = [
   { title: "Home", href: "/" },
   { title: "About", href: "/about-us" },
   { title: "Products", href: "/products" },
   { title: "Contact", href: "/contact" },
-];
-
-const categories = [
-  "Hospital Beds",
-  "General Ward Furniture",
-  "Patient Transportation",
-  "General Purpose Trolleys",
-  "Operation Theater Furniture",
-  "Clinical Furniture",
-  "Storage Cabinets",
-  "Obstetric Furniture",
-  "Paediatric Furniture",
-  "Emergency Crash Trolleys",
-  "Electro Medical Equipment",
 ];
 
 const Footer = () => {
@@ -99,14 +86,17 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold text-white">Categories</h3>
             <ul className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {categories.map((category) => (
-                <li key={category}>
+              {productsData.map((category) => (
+                <li key={category.id}>
                   <Link
-                    href="/products"
+                    href={{
+                      pathname: "/products",
+                      query: { category: category.id },
+                    }}
                     className="group inline-flex items-start gap-2 text-sm leading-6 text-slate-400 transition-colors duration-300 hover:text-cyan-400"
                   >
                     <ChevronRight className="mt-1 h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5" />
-                    <span>{category}</span>
+                    <span>{category.name}</span>
                   </Link>
                 </li>
               ))}
