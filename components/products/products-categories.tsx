@@ -5,8 +5,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { productsData } from "@/data/products-data";
 import ProductCategoryCard from "@/components/product-category-card";
 
-const makeTabValue = (category: string) =>
-  category.toLowerCase().replace(/[^a-z0-9]+/g, "_");
+const makeTabValue = (value?: string) =>
+  value?.toLowerCase().replace(/[^a-z0-9]+/g, "_") || "";
 
 const ProductsCategories = () => {
   const defaultValue = makeTabValue(productsData[0].name);

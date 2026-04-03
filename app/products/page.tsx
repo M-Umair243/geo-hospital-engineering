@@ -1,11 +1,10 @@
+import { Suspense } from "react";
 import ProductsCategories from "./products-categories";
 
-const page = () => {
+export default function Page() {
   return (
-    <main className="bg-white">
+    <Suspense fallback={<div>Loading...</div>}>
       <ProductsCategories />
-    </main>
+    </Suspense>
   );
-};
-
-export default page;
+}
