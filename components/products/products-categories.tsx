@@ -9,11 +9,11 @@ const makeTabValue = (category: string) =>
   category.toLowerCase().replace(/[^a-z0-9]+/g, "_");
 
 const ProductsCategories = () => {
-  const defaultValue = makeTabValue(productsData[0].category);
+  const defaultValue = makeTabValue(productsData[0].name);
   const [activeTab, setActiveTab] = React.useState(defaultValue);
 
   const activeCategory =
-    productsData.find((item) => makeTabValue(item.category) === activeTab) ||
+    productsData.find((item) => makeTabValue(item.name) === activeTab) ||
     productsData[0];
 
   return (
@@ -38,11 +38,11 @@ const ProductsCategories = () => {
               <TabsList className="flex h-auto w-full flex-row gap-2 overflow-x-auto rounded-2xl bg-transparent p-0 lg:flex-col">
                 {productsData.map((item) => (
                   <TabsTrigger
-                    key={item.category}
-                    value={makeTabValue(item.category)}
+                    key={item.name}
+                    value={makeTabValue(item.name)}
                     className="h-auto min-w-max rounded-2xl border border-slate-200 bg-white px-4 py-3 text-left text-sm font-semibold text-slate-700 shadow-none transition-all duration-200 hover:border-cyan-200 hover:bg-cyan-50 data-[state=active]:border-cyan-200 data-[state=active]:bg-cyan-50 data-[state=active]:text-slate-900 lg:w-full lg:min-w-0 lg:justify-start"
                   >
-                    {item.category}
+                    {item.name}
                   </TabsTrigger>
                 ))}
               </TabsList>
@@ -52,7 +52,7 @@ const ProductsCategories = () => {
           <div className="min-w-0">
             <div className="mb-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
               <h2 className="text-3xl font-bold tracking-tight text-slate-900">
-                {activeCategory.category}
+                {activeCategory.name}
               </h2>
               <p className="mt-3 text-sm leading-7 text-slate-600">
                 Explore products available in this category.
@@ -61,8 +61,8 @@ const ProductsCategories = () => {
 
             {productsData.map((item) => (
               <TabsContent
-                key={item.category}
-                value={makeTabValue(item.category)}
+                key={item.name}
+                value={makeTabValue(item.name)}
                 className="mt-0"
               >
                 <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
